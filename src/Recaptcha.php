@@ -8,7 +8,7 @@ class Recaptcha extends Component
 	public $api_url = 'https://www.google.com/recaptcha/api/siteverify';
 	public $public_key;
 	public $secret_key;
-	public $threshold = 0.5;
+	public $threshold = 0.5; // from 0 to 1
 
 	public function verify($token, $action)
 	{

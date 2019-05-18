@@ -19,7 +19,9 @@ class RecaptchaInit extends Widget
 
 	public function run()
 	{
-		RecaptchaAsset::register($this->getView());
+		$asset = RecaptchaAsset::register($this->getView());
+		$asset->public_key = $this->public_key;
+
 		$this->getView()->registerJs("grecaptcha.ready(function() {
 			grecaptcha.execute('" . $this->public_key . "', {action: '" . $this->action . "'})
 				.then(function(token) {
@@ -30,6 +32,7 @@ class RecaptchaInit extends Widget
 					}
 				});
 		});");
+
 		return;
 	}
 }
