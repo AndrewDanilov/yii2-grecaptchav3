@@ -13,7 +13,7 @@ class RecaptchaInit extends Widget
 	{
 		parent::init();
 		if (empty($this->public_key)) {
-			$this->public_key = \Yii::$app->grecaptchav3->public_key;
+			$this->public_key = \Yii::$app->recaptcha->public_key;
 		}
 	}
 
