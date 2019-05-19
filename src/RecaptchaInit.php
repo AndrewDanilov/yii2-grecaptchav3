@@ -13,7 +13,12 @@ class RecaptchaInit extends Widget
 	{
 		parent::init();
 		if (empty($this->public_key)) {
-			$this->public_key = \Yii::$app->recaptcha->public_key;
+			if (isset(\Yii::$app->components['recaptcha'])) {
+				$this->public_key = \Yii::$app->recaptcha->public_key;
+			}
+		}
+		if (empty($this->action)) {
+			$this->action = \Yii::$app->controller->id . '-' . \Yii::$app->controller->action->id;
 		}
 	}
 

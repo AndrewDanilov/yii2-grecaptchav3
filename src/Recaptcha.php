@@ -10,8 +10,12 @@ class Recaptcha extends Component
 	public $secret_key;
 	public $threshold = 0.5; // from 0 to 1
 
-	public function verify($token, $action)
+	public function verify($token, $action='')
 	{
+		if (empty($action)) {
+			$action = \Yii::$app->controller->id . '-' . \Yii::$app->controller->action->id;
+		}
+
 		$params = [
 			'secret' => $this->secret_key,
 			'response' => $token,
