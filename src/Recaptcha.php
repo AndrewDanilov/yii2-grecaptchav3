@@ -29,7 +29,7 @@ class Recaptcha extends Component
 		if (!empty($response)) {
 			$decoded_response = json_decode($response);
 			if ($decoded_response && $decoded_response->success && $decoded_response->action == $action && $decoded_response->score > $this->threshold) {
-				return $decoded_response->success;
+				return true;
 			}
 		}
 
