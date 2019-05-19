@@ -32,8 +32,8 @@ class RecaptchaInit extends Widget
 				.then(function(token) {
 					if (token) {
 						var form = $('#" . $this->formID . "');
-						form.append($('<input>', {type: 'hidden', name: 'token', value: token}));
-						form.append($('<input>', {type: 'hidden', name: 'action', value: '" . $this->action . "'}));
+						form.append($('<input>', {type: 'hidden', name: 'g-recaptcha-token', value: token}));
+						form.append($('<input>', {type: 'hidden', name: 'g-recaptcha-action', value: '" . $this->action . "'}));
 					}
 				});
 		});");
