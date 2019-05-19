@@ -7,14 +7,14 @@ class RecaptchaInit extends Widget
 {
 	public $formID;
 	public $action;
-	public $public_key;
+	public $sitekey;
 
 	public function init()
 	{
 		parent::init();
-		if (empty($this->public_key)) {
+		if (empty($this->sitekey)) {
 			if (isset(\Yii::$app->components['recaptcha'])) {
-				$this->public_key = \Yii::$app->recaptcha->public_key;
+				$this->sitekey = \Yii::$app->recaptcha->sitekey;
 			}
 		}
 		if (empty($this->action)) {
@@ -25,10 +25,10 @@ class RecaptchaInit extends Widget
 	public function run()
 	{
 		$asset = RecaptchaAsset::register($this->getView());
-		$asset->public_key = $this->public_key;
+		$asset->sitekey = $this->sitekey;
 
 		$this->getView()->registerJs("grecaptcha.ready(function() {
-			grecaptcha.execute('" . $this->public_key . "', {action: '" . $this->action . "'})
+			grecaptcha.execute('" . $this->sitekey . "', {action: '" . $this->action . "'})
 				.then(function(token) {
 					if (token) {
 						var form = $('#" . $this->formID . "');

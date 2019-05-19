@@ -13,17 +13,17 @@ class RecaptchaAsset extends AssetBundle
 		'yii\web\JqueryAsset',
 	];
 
-	public $public_key;
+	public $sitekey;
 
 	public function init()
 	{
 		parent::init();
-		if (empty($this->public_key)) {
+		if (empty($this->sitekey)) {
 			if (isset(\Yii::$app->components['recaptcha'])) {
-				$this->public_key = \Yii::$app->recaptcha->public_key;
+				$this->sitekey = \Yii::$app->recaptcha->sitekey;
 			}
 		}
 
-		$this->js[] = ['https://www.google.com/recaptcha/api.js?render=' . $this->public_key, 'position' => View::POS_HEAD];
+		$this->js[] = ['https://www.google.com/recaptcha/api.js?render=' . $this->sitekey, 'position' => View::POS_HEAD];
 	}
 }

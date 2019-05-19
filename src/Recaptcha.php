@@ -6,18 +6,14 @@ use yii\base\Component;
 class Recaptcha extends Component
 {
 	public $api_url = 'https://www.google.com/recaptcha/api/siteverify';
-	public $public_key;
-	public $secret_key;
+	public $sitekey;
+	public $secret;
 	public $threshold = 0.5; // from 0 to 1
 
-	public function verify($token, $action='')
+	public function verify($token, $action)
 	{
-		if (empty($action)) {
-			$action = \Yii::$app->controller->id . '_' . \Yii::$app->controller->action->id;
-		}
-
 		$params = [
-			'secret' => $this->secret_key,
+			'secret' => $this->secret,
 			'response' => $token,
 			'remoteip' => $_SERVER['REMOTE_ADDR'],
 		];
