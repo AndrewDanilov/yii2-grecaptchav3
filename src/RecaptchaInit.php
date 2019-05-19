@@ -18,7 +18,7 @@ class RecaptchaInit extends Widget
 			}
 		}
 		if (empty($this->action)) {
-			$this->action = \Yii::$app->controller->id . '-' . \Yii::$app->controller->action->id;
+			$this->action = \Yii::$app->controller->id . '_' . \Yii::$app->controller->action->id;
 		}
 	}
 

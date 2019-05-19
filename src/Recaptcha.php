@@ -13,7 +13,7 @@ class Recaptcha extends Component
 	public function verify($token, $action='')
 	{
 		if (empty($action)) {
-			$action = \Yii::$app->controller->id . '-' . \Yii::$app->controller->action->id;
+			$action = \Yii::$app->controller->id . '_' . \Yii::$app->controller->action->id;
 		}
 
 		$params = [
