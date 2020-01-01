@@ -65,7 +65,9 @@ In view
 
 <?= \andrewdanilov\grecaptchav3\RecaptchaInit::widget([
 	'formID' => 'registerForm',
-	'action' => 'my_register_action', // optional, default is <controller_id>_<action_id>
+	'action' => 'my_register_action', // optional, default is <controller_id>_<action_id>_<widget_id>
 	'sitekey' => 'place your sitekey here', // optional, if you defined sitekey in component config
 ]) ?>
 ```
+
+Widget param ___action___ must contain only chars from set [A-Za-z_] and has to be unique per form on page.
