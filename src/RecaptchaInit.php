@@ -27,15 +27,20 @@ class RecaptchaInit extends Widget
 		$asset = RecaptchaAsset::register($this->getView());
 		$asset->sitekey = $this->sitekey;
 
-		$this->getView()->registerJs("grecaptcha.ready(function() {
-			grecaptcha.execute('" . $this->sitekey . "', {action: '" . $this->action . "'})
-				.then(function(token) {
-					if (token) {
-						var form = $('#" . $this->formID . "');
-						form.append($('<input>', {type: 'hidden', name: 'g-recaptcha-token', value: token}));
-						form.append($('<input>', {type: 'hidden', name: 'g-recaptcha-action', value: '" . $this->action . "'}));
-					}
+		$this->getView()->registerJs("jQuery(function($) {
+			var form = $('#" . $this->formID . "');
+			form.submit(function() {
+				grecaptcha.ready(function() {
+					grecaptcha.execute('" . $this->sitekey . "', {action: '" . $this->action . "'})
+						.then(function(token) {
+							if (token) {
+								form.append($('<input>', {type: 'hidden', name: 'g-recaptcha-token', value: token}));
+								form.append($('<input>', {type: 'hidden', name: 'g-recaptcha-action', value: '" . $this->action . "'}));
+								form.submit();
+							}
+						});
 				});
+			});
 		});");
 
 		return;
