@@ -29,17 +29,21 @@ class RecaptchaInit extends Widget
 
 		$this->getView()->registerJs("jQuery(function($) {
 			var form = $('#" . $this->formID . "');
-			form.submit(function() {
-				grecaptcha.ready(function() {
-					grecaptcha.execute('" . $this->sitekey . "', {action: '" . $this->action . "'})
-						.then(function(token) {
-							if (token) {
-								form.append($('<input>', {type: 'hidden', name: 'g-recaptcha-token', value: token}));
-								form.append($('<input>', {type: 'hidden', name: 'g-recaptcha-action', value: '" . $this->action . "'}));
-								form.submit();
-							}
-						});
-				});
+			// on focusing at any form input field trying to add
+			// to form 'g-recaptcha-token' and 'g-recaptcha-action'
+			// hidden fields if there is no such fields yet
+			form.find('input').focus(function(e) {
+				if (form.find('input[name=\"g-recaptcha-token\"]').length === 0) {
+					grecaptcha.ready(function() {
+						grecaptcha.execute('" . $this->sitekey . "', {action: '" . $this->action . "'})
+							.then(function(token) {
+								if (token) {
+									form.append($('<input>', {type: 'hidden', name: 'g-recaptcha-token', value: token}));
+									form.append($('<input>', {type: 'hidden', name: 'g-recaptcha-action', value: '" . $this->action . "'}));
+								}
+							});
+					});
+				}
 			});
 		});");
 
